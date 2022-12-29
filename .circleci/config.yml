@@ -1,6 +1,5 @@
 version: 2.1
 
-# trigger deploy 
 orbs:
   aws-eks: circleci/aws-eks@2.2.0
   kubernetes: circleci/kubernetes@1.3

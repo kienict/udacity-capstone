@@ -21,15 +21,15 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             make install
-      - run:
-          name: Run lint
-          command: |
-            . venv/bin/activate
-            make lint
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
+          key: 'v1-dependencies-{{ checksum "requirements.txt" }}'
+      - run:
+          name: run lint
+          command: |
+            . venv/bin/activate
+            make lint
   build-and-push:
     executor: docker/docker
     steps:

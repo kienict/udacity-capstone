@@ -30,7 +30,6 @@ jobs:
           name: Run lint job
           command: |
             . venv/bin/activate
-            make test
             make lint
   build-and-push:
     executor: docker/docker

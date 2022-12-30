@@ -1,8 +1,8 @@
 version: 2.1
-# trigger deploy
+
 commands:
   destroy-environment:
-    description: Destroy resource while deploy fail.
+    description: Destroy resources while deploy fail.
     parameters:
       # Add parameter here   
       cluster_name:
@@ -96,7 +96,7 @@ jobs:
           cluster-name: eks-capstone
           install-kubectl: true
       - run:
-          name: Test kubectl
+          name: Test Kubernetes
           command: |  
             kubectl get services
             kubectl get nodes
@@ -109,10 +109,11 @@ jobs:
           resource-file-path: ".circleci/files/service.yml"
           show-kubectl-command: true
       - run:
-          name: get deployment status
+          name: Check deploy status
           command: kubectl get svc capstone
       - destroy-environment:
           cluster_name: eks-capstone
+          
   test-deployment:
     docker:
       - image: "cimg/python:3.10"
@@ -121,7 +122,7 @@ jobs:
           cluster-name: eks-capstone
           install-kubectl: true
       - run:
-          name: Balancing checker
+          name: Balance Test
           command: |
             sleep 30
             EXTERNAL_IP=$(kubectl get service capstone | awk '{print $4}' | tail -n1)

@@ -20,7 +20,7 @@ def scale(payload):
 
 @app.route("/")
 def home():
-    html = "<h1>Udacity Capstone Project - deployed by KienPV</h1>"
+    html = f"<h1>Udacity Capstone Project - deployed by KienPV</h1>"
     return html.format(format)
 
 @app.route("/predict", methods=['POST'])

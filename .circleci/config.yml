@@ -37,7 +37,7 @@ jobs:
       - setup_remote_docker
       - checkout
       - run: |
-          docker login -u $DOCKER_USER -p $DOCKER_PASS
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       # - docker/check
           # docker-username: $DOCKERHUB_LOGIN  # DOCKER_LOGIN is the default value, if it exists, it automatically would be used.
           # docker-password: $DOCKERHUB_PASSWORD  # 

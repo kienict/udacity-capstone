@@ -41,11 +41,11 @@ jobs:
 
       - docker/build:
           image: kienpv5/UdacityFinalApp
-          tag: "1.0"
-          
+          tag: 1.0
+
       - docker/push:
           image: kienpv5/UdacityFinalApp
-          tag: "1.0"
+          tag: 1.0
   deploy-eks:
     docker:
       - image: "cimg/python:3.10"

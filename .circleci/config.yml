@@ -103,7 +103,7 @@ jobs:
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
           resource-file-path: ".circleci/files/deployment.yml"
-          resource-name: deployment/capstone
+          resource-name: deployment/udacityfinalproject
           show-kubectl-command: true
       - kubernetes/create-or-update-resource:
           resource-file-path: ".circleci/files/service.yml"
@@ -111,6 +111,8 @@ jobs:
       - run:
           name: get deployment status
           command: kubectl get svc capstone
+      - destroy-environment:
+          cluster_name: eks-capstone
   test-deployment:
     docker:
       - image: "cimg/python:3.10"

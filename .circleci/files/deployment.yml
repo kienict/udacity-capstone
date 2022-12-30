@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: UdacityFinalProject
+  name: udacityfinalproject
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: UdacityFinalProject
+      app: udacityfinalproject
   template:
     metadata:
       labels:
-        app: UdacityFinalProject
+        app: udacityfinalproject
     spec:
       containers:
-      - name: UdacityFinalProject
+      - name: udacityfinalproject
         image: kienpv5/udacityfinalapp:1.0
         ports:
         - containerPort: 80

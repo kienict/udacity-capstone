@@ -67,13 +67,13 @@ jobs:
       - checkout
       - aws-cli/setup
       - aws-eks/create-cluster:
-          cluster-name: eks-capstone
-          nodegroup-name: eks-capstone-nodes
+          cluster-name: udacity-capstone-project
+          nodegroup-name: udacity-capstone-project-nodes
           node-type: t3.medium
           nodes-min: 2
           nodes-max: 3
       - destroy-environment:
-          cluster_name: eks-capstone
+          cluster_name: udacity-capstone-project
 
   run-app-deploy:
     docker:
@@ -81,21 +81,24 @@ jobs:
     steps:
       - checkout
       - aws-eks/update-kubeconfig-with-authenticator:
-          cluster-name: eks-capstone
+          cluster-name: udacity-capstone-project
           install-kubectl: true
       - run:
           name: Test Kubernetes
           command: |  
             kubectl get services
             kubectl get nodes
+
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
           resource-file-path: ".circleci/files/deployment.yml"
           resource-name: deployment/udacityfinalproject
           show-kubectl-command: true
+
       - kubernetes/create-or-update-resource:
           resource-file-path: ".circleci/files/service.yml"
           show-kubectl-command: true
+          
       - run:
           name: Check deploy status
           command: kubectl get svc udacityfinalproject
@@ -105,7 +108,7 @@ jobs:
       - image: "cimg/python:3.10"
     steps:
       - aws-eks/update-kubeconfig-with-authenticator:
-          cluster-name: eks-capstone
+          cluster-name: udacity-capstone-project
           install-kubectl: true
       - run:
           name: Balance Test

@@ -98,7 +98,7 @@ jobs:
           show-kubectl-command: true
       - run:
           name: Check deploy status
-          command: kubectl get svc capstone
+          command: kubectl get svc udacityfinalproject
       - destroy-environment:
           cluster_name: eks-capstone
 
@@ -113,7 +113,7 @@ jobs:
           name: Balance Test
           command: |
             sleep 30
-            EXTERNAL_IP=$(kubectl get service capstone | awk '{print $4}' | tail -n1)
+            EXTERNAL_IP=$(kubectl get service udacityfinalproject | awk '{print $4}' | tail -n1)
             echo "${EXTERNAL_IP}"
             if curl --insecure --silent --retry 10 http://${EXTERNAL_IP} | grep "Sklearn Prediction Home"
             then

@@ -130,6 +130,9 @@ workflows:
       - run-lint
       - docker-build:
           requires: [run-lint]
+          # filters:
+          #   branches:
+          #     only: [dev-branch]
       - eks-deploy:
           requires: [docker-build]
       - run-app-deploy:

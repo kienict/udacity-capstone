@@ -1,6 +1,5 @@
 version: 2.1
 
-# capstone project - udacity - kienpv
 commands:
   destroy-environment:
     description: Destroy resources while deploy fail.

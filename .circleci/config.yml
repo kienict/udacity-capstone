@@ -99,8 +99,6 @@ jobs:
       - run:
           name: Check deploy status
           command: kubectl get svc udacityfinalproject
-      - destroy-environment:
-          cluster_name: eks-capstone
 
   run-test:
     docker:

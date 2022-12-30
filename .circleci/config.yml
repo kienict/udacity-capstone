@@ -98,7 +98,7 @@ jobs:
       - kubernetes/create-or-update-resource:
           resource-file-path: ".circleci/files/service.yml"
           show-kubectl-command: true
-          
+
       - run:
           name: Check deploy status
           command: kubectl get svc udacityfinalproject
@@ -113,13 +113,15 @@ jobs:
       - run:
           name: Balance Test
           command: |
-            sleep 30
-            EXTERNAL_IP=$(kubectl get service udacityfinalproject | awk '{print $4}' | tail -n1)
+            sleep 60
+            EXTERNAL_IP=$(kubectl get service udacityfinalproject | awk '{print $4}' | tail -n 1)
             echo "${EXTERNAL_IP}"
-            if curl --insecure --silent --retry 3 http://${EXTERNAL_IP} | grep "KienPV"
+            if curl --insecure --silent --retry 6 http://${EXTERNAL_IP} | grep "KienPV"
             then
+              echo "[INFO] PASSED."
               exit 0
             else
+              echo "[ERROR] FAILED."
               exit 1
             fi
 workflows:

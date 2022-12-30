@@ -113,7 +113,7 @@ jobs:
             sleep 30
             EXTERNAL_IP=$(kubectl get service udacityfinalproject | awk '{print $4}' | tail -n1)
             echo "${EXTERNAL_IP}"
-            if curl --insecure --silent --retry 10 http://${EXTERNAL_IP} | grep "Sklearn Prediction Home"
+            if curl --insecure --silent --retry 3 http://${EXTERNAL_IP} | grep "KienPV"
             then
               exit 0
             else

@@ -38,12 +38,11 @@ jobs:
       - checkout
       - run: |
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      # - docker/check
-          # docker-username: $DOCKERHUB_LOGIN  # DOCKER_LOGIN is the default value, if it exists, it automatically would be used.
-          # docker-password: $DOCKERHUB_PASSWORD  # 
+
       - docker/build:
           image: kienpv5/UdacityFinalApp
           tag: "1.0"
+          
       - docker/push:
           image: kienpv5/UdacityFinalApp
           tag: "1.0"

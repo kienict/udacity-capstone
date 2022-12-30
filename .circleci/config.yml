@@ -4,7 +4,6 @@ commands:
   destroy-environment:
     description: Destroy resources while deploy fail.
     parameters:
-      # Add parameter here   
       cluster_name:
         type: string
     steps:
@@ -44,7 +43,8 @@ jobs:
           command: |
             . venv/bin/activate
             make lint
-  build-and-push:
+
+  docker-build:
     executor: docker/docker
     steps:
       - setup_remote_docker
@@ -59,25 +59,13 @@ jobs:
       - docker/push:
           image: kienpv5/udacityfinalapp
           tag: "1.0"
-  deploy-eks:
+
+  eks-deploy:
     docker:
       - image: "cimg/python:3.10"
     steps:
       - checkout
       - aws-cli/setup
-      # - run:
-      #     name: Check cluster
-      #     command: |
-      #       VALIDATE=$(aws eks describe-cluster --name eks-capstone --query 'cluster.name')
-      #       echo "$VALIDATE" > ~/validate
-      #       if cat ~/validate | grep "eks-capstone"
-      #       then
-      #         echo "Cluster eks-capstone already exist. Skipping job"
-      #         circleci-agent step halt
-      #         exit 0
-      #       else
-      #         echo "Attempting to create the cluster eks-capstone"
-      #       fi
       - aws-eks/create-cluster:
           cluster-name: eks-capstone
           nodegroup-name: eks-capstone-nodes
@@ -87,7 +75,7 @@ jobs:
       - destroy-environment:
           cluster_name: eks-capstone
 
-  deploy-application:
+  run-app-deploy:
     docker:
       - image: "cimg/python:3.10"
     steps:
@@ -113,8 +101,8 @@ jobs:
           command: kubectl get svc capstone
       - destroy-environment:
           cluster_name: eks-capstone
-          
-  test-deployment:
+
+  run-test:
     docker:
       - image: "cimg/python:3.10"
     steps:
@@ -137,11 +125,11 @@ workflows:
   deployment:
     jobs:
       - run-lint
-      - build-and-push:
+      - docker-build:
           requires: [run-lint]
-      - deploy-eks:
-          requires: [build-and-push]
-      - deploy-application:
-          requires: [deploy-eks]
-      - test-deployment:
-          requires: [deploy-application]
+      - eks-deploy:
+          requires: [docker-build]
+      - run-app-deploy:
+          requires: [eks-deploy]
+      - run-test:
+          requires: [run-app-deploy]

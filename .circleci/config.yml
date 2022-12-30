@@ -12,7 +12,7 @@ commands:
           name: Destroy environments
           when: on_fail
           command: |
-            eksctl delete cluster --region=us-east-1 --name=parameters.cluster_name
+            eksctl delete cluster --region=us-east-1 --name=<<parameters.cluster_name>>
 orbs:
   aws-eks: circleci/aws-eks@2.2.0
   kubernetes: circleci/kubernetes@1.3

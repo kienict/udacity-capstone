@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: UdacityFinalProject
-        image: kienpv5/UdacityFinalApp
+        image: kienpv5/udacityfinalapp:1.0
         ports:
         - containerPort: 80

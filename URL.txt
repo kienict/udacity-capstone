@@ -2,3 +2,4 @@
 https://github.com/kienict/udacity-capstone
 
 2. Frontend web URL
+http://aae57205f7ec741cc94d847ac49a81a8-350611678.us-east-1.elb.amazonaws.com/
